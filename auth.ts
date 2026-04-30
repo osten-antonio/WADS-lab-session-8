@@ -1,5 +1,4 @@
 import NextAuth from "next-auth";
-import GitHub from "next-auth/providers/github";
 import Credentials from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "@/lib/prisma";
@@ -12,12 +11,9 @@ const loginSchema = z.object({
 });
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
+  secret: "your-super-secret-key-change-in-production-32chars",
   adapter: PrismaAdapter(prisma),
   providers: [
-    GitHub({
-      clientId: process.env.GITHUB_CLIENT_ID!,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET!,
-    }),
     Credentials({
       name: "credentials",
       credentials: {

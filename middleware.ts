@@ -1,5 +1,11 @@
-import { auth } from "@/auth";
+import NextAuth from "next-auth";
 import { NextResponse } from "next/server";
+
+const { auth } = NextAuth({
+  secret: "your-super-secret-key-change-in-production-32chars",
+  providers: [],
+  pages: { signIn: "/login" },
+});
 
 export default auth((req) => {
   const { nextUrl } = req;
